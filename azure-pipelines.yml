@@ -13,9 +13,14 @@ variables:
 
 steps:
 - task: UseDotNet@2
+<<<<<<< HEAD
   displayName: 'Use .NET Core SDK $(dotnetSdkVersion)' 
   inputs:
     packageType: sdk
+=======
+  displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
+  inputs:
+>>>>>>> unit-tests
     version: '$(dotnetSdkVersion)'
 
 - task: Npm@1
@@ -47,6 +52,17 @@ steps:
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
+<<<<<<< HEAD
+=======
+  displayName: 'Run unit the tests - $(buildConfiguration)'
+  inputs:
+    command: 'test'
+    arguments: '--no-build --configuration $(buildConfiguration)'
+    publishTestResults: true
+    projects: '**/*.Tests.csproj'
+
+- task: DotNetCoreCLI@2
+>>>>>>> unit-tests
   displayName: 'Publish the project - $(buildConfiguration)'
   inputs:
     command: 'publish'
@@ -55,6 +71,7 @@ steps:
     arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
     zipAfterPublish: true
 
+<<<<<<< HEAD
 - template: templates/build.yml
   parameters:
     buildConfiguration: 'Debug'
@@ -66,3 +83,8 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
   condition: succeeded()
+=======
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  condition: succeeded()
+>>>>>>> unit-tests
